@@ -26,15 +26,14 @@ jobs:
 
     - name: Build Qt project
       run: |
-        qmake  # 根据您的项目需要调整这个命令
+        qmake  
         make
 
 
     - name: Create Debian package directory
       run: |
         mkdir -p debian/package
-        cp -R path/to/your/built/executable debian/package/  # 将生成的可执行文件复制到包目录
-        # 如果有其他文件或配置文件需要包含，也请复制到相应的位置
+        cp -R path/to/your/built/executable debian/package/  
 
     - name: Package the Qt project
       run: |
