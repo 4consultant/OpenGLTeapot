@@ -1,4 +1,4 @@
-name: Build Debian Package
+name: Build and Package Qt Project as Debian Package
 
 on:
   push:
@@ -10,21 +10,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install dependencies
+    - name: Set up Qt
+      uses: qmfrederik/setup-qt@v3
+      with:
+        qt-version: '5.15'  
+
+    - name: Install required build tools and dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential debhelper
 
-    - name: Build Debian package
-      run: |
-        cd debian  # 进入 debian 目录
-        dpkg-buildpackage -us -uc
 
-    - name: Upload .deb package
+    - name: Build Qt project
+      run: |
+        qmake  # 根据您的项目需要调整这个命令
+        make
+
+
+    - name: Create Debian package directory
+      run: |
+        mkdir -p debian/package
+        cp -R path/to/your/built/executable debian/package/  # 将生成的可执行文件复制到包目录
+        # 如果有其他文件或配置文件需要包含，也请复制到相应的位置
+
+    - name: Package the Qt project
+      run: |
+        dpkg-deb --build debian debian-package.deb
+
+    - name: Upload Debian package
       uses: actions/upload-artifact@v2
       with:
-        name: wapp
-        path: ${{ github.workspace }}/wapp/
+        name: debian-package
+        path: debian-package.deb
