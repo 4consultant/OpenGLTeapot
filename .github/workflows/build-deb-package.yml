@@ -38,7 +38,7 @@ jobs:
 
     - name: Package the Qt project
       run: |
-        dpkg-deb --build debian debian-package.deb
+        dpkg-deb --build wapp wapp_linux_arm64.deb
 
     - name: Upload Debian package
       uses: actions/upload-artifact@v2
