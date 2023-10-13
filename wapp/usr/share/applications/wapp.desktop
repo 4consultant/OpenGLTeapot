@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=wapp
+Exec=/usr/local/wapp/wapp.sh
+Icon=/usr/share/icons/logo3.ico
+Comment="released_on_2023_10_13"
+Terminal=false
+Type=Application
+Categories=Development
+
